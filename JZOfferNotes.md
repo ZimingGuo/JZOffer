@@ -260,6 +260,105 @@ class Solution:
 ```
 
 ##### JZ18 二叉树的镜像 树
+操作给定的二叉树, 将其变换为源二叉树的镜像
+二叉树的镜像定义: 
+源二叉树 
+    	    8
+    	   /  \
+    	  6   10
+    	 / \  / \
+    	5  7 9  11
+镜像二叉树
+    	    8
+    	   /  \
+    	  10   6
+    	 / \  / \
+      	11 9 7   5
++ analysis1:
+非递归:
+看到题解里都是简单的递归方法, 由于面试中面试官多会问非递归的方法, 这里提供非递归的代码
+镜像就是将“根”节点的左右两个“子”节点互换, 类似于数组的元素交换(运用临时节点temp), 利用二叉树的广度优先搜索即可
+即, 当处理新的一层时, 依次(从左至右)取得每个结点, 并交换他们的左右子结点, 因为是从第一层开始往下的, 所以只需要在每次处理一层时依次把每一个结点的左右子结点交换一下, 就会在处理完整棵树时, 所有结点都交换了一遍
++ solution1: 
+```python
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+#
+# 
+# @param pRoot TreeNode类 
+# @return void
+#
+class Solution:
+    def Mirror(self , pRoot ):
+        # write code here
+        # 非递归解法 
+        if pRoot is None:
+            return None
+        stack = []
+        stack.append(pRoot) # 把根节点压入 stack 
+        while stack: # stack不为空执行下列步骤 
+            node = stack.pop() # 弹出一个根节点 
+            if node.left:
+                stack.append(node.left) # node.left 又是一个根节点, 压入 stack, 用于后续交换
+            if node.right:
+                stack.append(node.right) # node.right 又是一个根节点, 压入 stack, 用于后续交换
+            node.left,node.right = node.right,node.left # 交换两个子节点 
+        return pRoot
+```
++ analysis2:
+递归:
+交换左右子树的节点，然后递归调用该方法
++ solution2:
+```python
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+#
+# 
+# @param pRoot TreeNode类 
+# @return void
+#
+# 递归解法 
+class Solution:
+    def Mirror(self , pRoot ):
+        # write code here
+        if not pRoot:
+            return pRoot
+        pRoot.left, pRoot.right = self.Mirror(pRoot.right), self.Mirror(pRoot.left)
+        
+        return pRoot
+```
+```python
+
+```
+```python
+
+```
+```python
+
+```
+```python
+
+```
+```python
+
+```
+```python
+
+```
+```python
+
+```
+```python
+
+```
 ```python
 
 ```
